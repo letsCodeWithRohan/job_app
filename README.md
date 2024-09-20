@@ -4,6 +4,13 @@
 <ol start="1">
 <li>Download and Extract This Repository</li>
 <li>Open command prompt in that folder</li>
+<li>
+   <p>Install Node Dependencies</p>
+
+```bash
+npm install
+```
+</li>
 <li><p>Install virtualenv if you don't have it</p>  
     
 ```bash
@@ -36,13 +43,7 @@ virtualenv .venv
 pip install flask flask_mysqldb
 ```
 </li>
-<li>
-   <p>Install Node Dependencies</p>
 
-```bash
-npm install
-```
-</li>
 <li>
 <p>Setup Database</p>
 <ul>
