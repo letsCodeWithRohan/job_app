@@ -1,5 +1,4 @@
 <h1>Job Finding Application in Flask</h1>
-<hr>
 <h2>Created By Nikit Nagpara</h2>
 <h4>Steps to download and run this project</h4>
 <ol start="1">
