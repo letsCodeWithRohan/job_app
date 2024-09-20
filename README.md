@@ -47,8 +47,8 @@ pip install flask flask_mysqldb
 <li>Open <kbd>Admin</kbd> of MySQL</li>
 <li>Create New Database as your wish Ex : "job_app"</li>
 <li>Click on it then open <kbd>Import</kbd> Tab </li>
-<li>SELECT file <mark>job_app.sql</mark>.
-<li>Import tables by clicking <kbd>Import</kbd></li>
+<li>SELECT file <code>job_app.sql</code>.
+<li>Import tables by clicking <kbd>Import</kbd> button.</li>
 </ul>
 </li>
 <li>
