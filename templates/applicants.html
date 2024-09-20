@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicants | Jobsy</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+</head>
+
+<body class="flex flex-col justify-between min-h-screen w-full dark:bg-zinc-900 bg-white dark:text-white font-[Outfit]">
+    <header class="flex justify-between px-[5vw] shadow-md h-[60px] items-center">
+        <a href="/admin/" class="text-2xl font-bold">Job<span class="text-violet-500">Hunt</span></a>
+        <div class="flex items-center gap-[3vw] font-semibold text-lg dark:text-white text-slate-600">
+            <a href="/admin/" class="hover:text-violet-500">Companies</a>
+            <a href="/admin/jobs" class="hover:text-violet-500">Jobs</a>
+            <a href="/admin/profile">
+                <img src="/static/uploads/{{session['profile']}}" alt="Profile Image" title="Profile Image"
+                    class="w-[45px] h-[45px] rounded-full border border-[#000] dark:border-[#fff]">
+            </a>
+            <a href="/logout_admin" class="hover:text-violet-500"><i class="ri-logout-box-r-line"></i></a>
+        </div>
+    </header>
+    <div class="app w-full px-[5vw] bg-slate-200 flex-1 py-[2vh]">
+        <main class="bg-white p-5 flex flex-col gap-5 rounded-[10px]">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-semibold">Applicants ({{counts[0]}})</h1>
+            </div>
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Contact
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Resume
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Status
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Date
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if applicants | length > 0 %}
+                    {% for id,profile,resume,name,email,phone,status,date in applicants %}
+                    <tr
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                        <th scope="row"
+                            class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                            <img class="w-10 h-10 rounded-full" src="/static/uploads/{{profile}}" alt="Jese image">
+                            <div class="ps-3">
+                                <div class="text-base font-semibold">{{name}}</div>
+                                <div class="font-normal text-gray-500">{{email}}</div>
+                            </div>
+                        </th>
+                        <td class="px-6 py-4">
+                            {{phone}}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <a href="/uploads/{{resume}}" target="_blank" type="button"
+                                data-modal-target="editUserModal" data-modal-show="editUserModal"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">See Resume</a>
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <div class="flex items-center">
+                                {% if status == "approved" %}
+                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> {{status}}
+                                {% elif status == "rejected" %}
+                                <div class="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> {{status}}
+                                {% else %}
+                                <div class="h-2.5 w-2.5 rounded-full bg-slate-500 me-2"></div> {{status}}
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            {{date}}
+                        </td>
+                        <td class="px-6 py-4">
+                            <!-- Modal toggle -->
+                            <form action="/change_status/{{id}}" method="post">
+                                <select name="status" class="p-2" id="selecBtn">
+                                    {% if status == 'pending' %}
+                                    <option value="pending" selected>Pending</option>
+                                    {% else %}
+                                    <option value="pending">Pending</option>
+                                    {% endif %}
+                                    {% if status == 'rejected' %}
+                                    <option value="rejected" selected>Rejected</option>
+                                    {% else %}
+                                    <option value="rejected">Rejected</option>
+                                    {% endif %}
+                                    {% if status == 'approved' %}
+                                    <option selected value="approved">Approved</option>
+                                    {% else %}
+                                    <option value="approved">Approved</option>
+                                    {% endif %}
+                                </select>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr class="p-7">
+                        <td colspan="6">
+                            <h1 class="text-xl font-semibold">No Applicants</h1>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    clifford: '#da373d',
+                }
+            }
+        },
+        darkMode: 'selector',
+    }
+
+    let orders = document.querySelectorAll('#selecBtn')
+
+        orders.forEach((e)=>{
+            e.addEventListener('change',()=>{
+              e.parentElement.submit();  
+        })})
+</script>
+
+</html>

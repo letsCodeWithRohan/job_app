@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobs | Jobsy</title>
+  <script src="https://cdn.tailwindcss.com/"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body class="h-screen flex flex-col justify-between w-full dark:bg-zinc-900 bg-white dark:text-white font-[Outfit]">
+  <header class="flex justify-between px-[5vw] h-[60px] shadow-md items-center">
+    <a href="/" class="text-2xl font-bold">Job<span class="text-violet-500">Hunt</span></a>
+    <div class="flex items-center gap-[3vw] font-semibold text-lg dark:text-white text-slate-600">
+      <a href="/" class="hover:text-violet-500">Home</a>
+      <a href="/jobs" class="text-violet-500 hover:text-violet-500">Jobs</a>
+      <a href="/profile">
+        <img src="/static/uploads/{{session['profile']}}" alt="Profile Image" title="Profile Image"
+          class="w-[45px] h-[45px] rounded-full border border-[#000] dark:border-[#fff]">
+      </a>
+      <a href="/logout" class="hover:text-violet-500"><i class="ri-logout-box-r-line"></i></a>
+    </div>
+  </header>
+  <div class="app flex-1 bg-slate-300 h-[80vh] flex items-center justify-between">
+    <form action="/jobs_filter" method="post" class="w-[25vw] ps-[5vw] bg-transparent h-full p-3">
+      <div class="menu w-full bg-white flex flex-col p-3 gap-3 rounded-[10px] h-max">
+        <h1 class="text-lg font-semibold">Filter Jobs</h1>
+        <div>
+          <p class="text-md font-semibold">Location</p>
+          <select name="location" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500">
+            <option value="all">Any Where</option>
+            {% if locations %}
+            {% for item in locations%}
+            <option value="{{item[0]}}">{{item[0]}}</option>
+            {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+        <div>
+          <p class="text-md font-semibold">Job Type</p>
+          <select name="type" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500">
+            <option value="all" selected>All</option>
+            <option value="Full-Time">Full Time</option>
+            <option value="Part-Time">Part Time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+          </select>
+        </div>
+        <div>
+          <p class="text-md font-semibold">Industry</p>
+          <select name="industry" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500">
+            <option value="all">All</option>
+            {% if roles %}
+            {% for item in roles %}
+            <option value="{{item[0]}}">{{item[0]}}</option>
+            {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+        <div>
+          <p class="text-md font-semibold">Salary</p>
+          <p><input name="salary" value="all" type="radio" checked> All</p>
+          <p><input name="salary" value="under10" type="radio"> Under 10lakh</p>
+          <p><input name="salary" value="10to50" type="radio"> 10 - 50lakh</p>
+          <p><input name="salary" value="50plus" type="radio"> More than 50lakh</p>
+        </div>
+        <button type="submit" class="p-2 bg-violet-500 hover:bg-violet-600 text-white rounded-[10px]"><i
+            class="ri-filter-line"></i> Filter</button>
+      </div>
+    </form>
+    <main class="flex-1 grid grid-cols-1 md:grid-cols-3 bg-slate-300 h-full overflow-x-hidden gap-3 p-3">
+      {% for job in data %}
+      <a href="/job_info/{{job['id']}}" class="card flex flex-col gap-3 p-5 bg-white w-full h-max rounded-[10px]">
+        <div class="flex justify-between items-center">
+          <p>{{job['date']}}</p>
+          <i class="text-[1.4rem] ri-bookmark-line"></i>
+        </div>
+        <div class="flex items-center gap-3">
+          <img src="/static/uploads/{{job['profile']}}" class="w-[40px] h-[40px] rounded-full" alt="">
+          <div class="flex flex-col gap-1">
+            <p class="font-semibold text-md">{{job['name']}}</p>
+            <p class="text-slate-600 text-xs">{{job['location']}}</p>
+          </div>
+        </div>
+        <p class="text-lg font-semibold">{{job['role']}}</p>
+        <p class="text-xs text-slate-800">{{job['description']}}</p>
+        <div class="flex gap-3 items-center">
+          <p class="text-sky-600 text-sm shadow-md p-1 font-semibold rounded-[5px]">{{job['positions']}} positions</p>
+          <p class="text-red-600 text-sm shadow-md p-1 font-semibold rounded-[5px]">{{job['type']}}</p>
+          <p class="text-violet-600 text-sm shadow-md p-1 font-semibold rounded-[5px]">{{job['salary']}}LPA</p>
+        </div>
+        <!-- <div class="flex items-center gap-3">
+            <a href="/jobs" class="text-sm font-semibold p-2 shadow-md border rounded-[5px]">Details</a>
+            <a href="/jobs" class="text-sm font-semibold p-2 shadow-md border rounded-[5px] bg-violet-500 text-white hover:bg-violet-600">Save For Later</a>
+          </div> -->
+      </a>
+      {% endfor %}
+    </main>
+  </div>
+</body>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          clifford: '#da373d',
+        }
+      }
+    },
+    darkMode: 'selector',
+  }
+</script>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Jobs | Jobsy</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+</head>
+
+<body
+    class="flex relative flex-col justify-between min-h-screen w-full dark:bg-zinc-900 bg-white dark:text-white font-[Outfit]">
+    <header class="flex justify-between px-[5vw] shadow-md h-[60px] items-center">
+        <a href="/admin/" class="text-2xl font-bold">Job<span class="text-violet-500">Hunt</span></a>
+        <div class="flex items-center gap-[3vw] font-semibold text-lg dark:text-white text-slate-600">
+            <a href="/admin/" class="hover:text-violet-500">Companies</a>
+            <a href="/admin/jobs" class="text-violet-500 hover:text-violet-500">Jobs</a>
+            <a href="/admin/profile">
+                <img src="/static/uploads/{{session['profile']}}" alt="Profile Image" title="Profile Image"
+                    class="w-[45px] h-[45px] rounded-full border border-[#000] dark:border-[#fff]">
+            </a>
+            <a href="/logout_admin" class="hover:text-violet-500"><i class="ri-logout-box-r-line"></i></a>
+        </div>
+    </header>
+    <div class="app w-full px-[5vw] bg-slate-200 flex-1 py-[2vh]">
+        <main class="bg-white p-5 flex flex-col gap-5 rounded-[10px]">
+            <form action="/edit_company/{{data[5]}}" method="post" enctype="multipart/form-data" class="dark:bg-zinc-900 bg-white w-full mx-auto p-5 flex flex-col gap-5 rounded-[10px]">
+                <h1 class="text-2xl font-semibold">Edit Company</h1>
+            <div class="row flex items-center gap-3">
+                <div class="w-1/2">
+                    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Name</label>
+                    <input type="text" id="title" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="" required name="name" value="{{data[0]}}" />
+                </div>
+                <div class="w-1/2">
+                    <label for="req" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
+                    <input type="text" id="req" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required name="location" value="{{data[2]}}" />
+                </div>
+            </div>
+            <div class="row flex items-center gap-3">
+                <div class="w-1/2">
+                    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website</label>
+                    <input type="text" id="title" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="" required name="website" value="{{data[3]}}" />
+                </div>
+                <div class="w-1/2">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Profile</label>
+          <input class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" name="profile" value="{{data[1]}}" required>
+          
+                </div>
+            </div>
+            <div>
+                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Add Description" name="description" required>{{data[4]}}</textarea>
+              
+            </div>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit company</button>
+          
+        </form>
+        </main>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    clifford: '#da373d',
+                }
+            }
+        },
+        darkMode: 'selector',
+    }
+    let jobBtn = document.querySelector("#job-btn");
+    let jobModal = document.querySelector('#job-model');
+    jobBtn.addEventListener('click', () => {
+        jobModal.classList.remove("hidden")
+    })
+    jobModal.addEventListener('click', (e) => {
+        if (e.target === jobModal) {
+            jobModal.classList.add("hidden")
+        }
+    })
+    let tl = gsap.timeline()
+
+    tl
+        .from('.flashMsg', {
+            top: '-15vh',
+            duration: 1,
+            ease: 'bounce'
+        })
+        .to('.flashMsg', {
+            top: '15vh',
+            duration: 1,
+            ease: 'sine'
+        })
+        .to('.flashMsg', {
+            delay: 1.5,
+            opacity: 0,
+            duration: 0.5
+        })
+        .to('.flashMsg', {
+            top: '-15vh',
+            duration: 0.5
+        })
+</script>
+
+</html>

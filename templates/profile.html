@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Jobsy</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<style>
+    .skill_item:hover > a{
+        display: inline;
+        transition: 0.3s linear ease-in-out;
+    }
+</style>
+<body class="min-h-screen w-full dark:bg-zinc-900 bg-white dark:text-white font-[Outfit]">
+    <div class="skill-model fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <form action="/add_skill" method="post" class="md:w-1/4 sm:w-4/5 rounded-[10px] p-5 bg-white flex flex-col gap-3">
+            <h1 class="text-xl font-semibold">Add Skill</h1>
+            <div class="">
+                <label for="skill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type Skill</label>
+                <input type="text" id="skill" class="shadow-sm bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" name="name" placeholder="HTML,CSS,JS,..." required />
+              </div>
+              <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 w-max group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800" type="submit">
+                <span class="relative px-5 py-1.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                + Add
+                </span>
+                </button>
+        </form>
+    </div>
+    <div class="edit-model fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <form action="/edit_profile" method="post" enctype="multipart/form-data" class="w-1/3 py-4 px-4 bg-white rounded-2xl shadow-xl z-20">
+            <div>
+              <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">Edit Profile</h1>
+            </div>
+            <div class="space-y-3">
+              <input type="email" placeholder="Email Address" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500" value="{{user['email']}}" disabled />
+              <input type="text" name="password" minlength="8" placeholder="Password" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500" value="{{user['password']}}" required/>
+              <input type="text" name="name" placeholder="Full Name" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500" value="{{user['name']}}" required/>
+              <input type="tel" name="phone" placeholder="Phone Number" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500" value="{{user['phone']}}" required />
+              <input type="text" name="bio" placeholder="Enter Bio" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500" value="{{user['bio']}}" required />
+              <span class="text-xs">Profile Picture</span>
+              <input type="file" accept="image/*" name="profile" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500" value="{{user['profile']}}" />
+              <span class="text-xs">Resume PDF</span>
+              <input type="file" accept=".pdf" name="resume" class="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500" value="{{user['resume']}}" />
+              <p class="flex gap-3 items-center">
+                  <input type="checkbox" required> <span> I agree to edit profile.</span>
+              </p>
+            </div>
+            <div class="text-center mt-3">
+              <button class="w-full py-2 text-xl text-white bg-purple-500 rounded-lg hover:bg-purple-600 transition-all" type="submit">Edit</button>
+            </div>
+          </form>
+    </div>
+    <header class="flex justify-between px-[5vw] h-[70px] shadow-md items-center">
+        <a href="/" class="text-2xl font-bold">Job<span class="text-violet-500">Hunt</span></a>
+        <div class="flex items-center gap-[3vw] font-semibold text-lg dark:text-white text-slate-600">
+            <a href="/" class="hover:text-violet-500">Home</a>
+            <a href="/jobs" class="hover:text-violet-500">Jobs</a>
+            <a href="/profile">
+                <img src="/static/uploads/{{user['profile']}}" alt="Profile Image" title="Profile Image" class="w-[45px] h-[45px] object-cover object-center rounded-full border border-[#000] dark:border-[#fff]">
+            </a>
+            <a href="/logout" class="hover:text-violet-500"><i class="ri-logout-box-r-line"></i></a>
+        </div>
+    </header>
+    <div class="px-[5vw] pt-[2vh]">
+        <div class="flex justify-between items-center">
+            <div class="justify-between flex items-center gap-[3vw]">
+                <img src="/static/uploads/{{user['profile']}}" alt="Profile Image" title="Profile Image" class="w-[70px] h-[70px] rounded-full border border-[#000] dark:border-[#fff]">
+                <div class="info flex flex-col gap-[1vh]">
+                    <p class="text-lg font-semibold">{{user['name']}}</p>
+                    <p class="text-md text-slate-600 w-[50vw]">{{user['bio']}}</p>
+                </div>
+            </div>
+            <p id="editProfile" class="w-[50px] h-[50px] shadow-md flex justify-center hover:bg-violet-500 hover:text-[#fff] items-center rounded-[10px]">
+                <i class="ri-pencil-line text-[1.4rem]"></i>
+            </p>
+        </div>
+        <a href="mailto:{{user['email']}}" class="w-max flex items-center gap-[1vw] py-4"><i class="ri-mail-line text-[1.4rem]"></i> {{user['email']}}</a>
+        <a href="tel:{{user['phone']}}" class="w-max flex items-center gap-[1vw] pb-4"><i class="ri-phone-line text-[1.4rem]"></i> {{user['phone']}}</a>
+        <h1 class="text-lg font-semibold">Skills</h1>
+        <div class="skills flex flex-wrap items-center gap-2 pt-3">
+            {% for id,name in skills %}
+            <span class="skill_item dark:bg-white bg-black rounded-[15px] text-sm px-3 py-1 text-white dark:text-black hover:bg-violet-500 hover:text-white">{{name}}  <a href="/d_skill/{{id}}" class="hidden"> <i class="ri-close-line"></i></a></span>
+            {% endfor %}
+            <span id="addSkill" class="dark:bg-black bg-white rounded-[15px] text-sm px-3 py-1 text-black dark:text-black hover:bg-violet-500 hover:text-black border-[1px] border-[#000] font-semibold hover:text-white hover:border-0 dark:border-[#fff]">+  Skill</span>
+        </div>
+        <h1 class="text-lg font-semibold py-4">Resume</h1>
+        <a href="/static/uploads/{{user['resume']}}" class="underline text-blue-900">{{user['resume']}}</a>
+        <div class="applied pb-4">
+            <h1 class="text-lg font-semibold py-4">Applied Jobs</h1>
+            <div class="shadow-md">
+                <div class="titles flex items-center border-b pb-3 border-slate-500 dark:border-[#fff] justify-between text-center">
+                    <p class="w-1/4">Date</p>
+                    <p class="w-1/4">Job Role</p>
+                    <p class="w-1/4">Company</p>
+                    <p class="w-1/4">Status</p>
+                </div>
+                {% for date,role,company,status in applications %}
+                <div class="records flex items-center border-b py-3 border-slate-500 dark:border-[#fff] justify-between text-center">
+                    <p class="w-1/4">{{date}}</p>
+                    <p class="w-1/4">{{role}}</p>
+                    <p class="w-1/4">{{company}}</p>
+                    <p class="w-1/4">
+                    {% if status == "rejected" %}
+                    <span class="bg-red-500 rounded-[15px] text-sm px-3 py-1 text-white dark:text-[#ddd]">Rejected</span>
+                    {% elif status == "approved" %}
+                    <span class="bg-green-500 rounded-[15px] text-sm px-3 py-1 text-white dark:text-[#ddd]">Approved</span>
+                    {% else %}
+                    <span class="bg-slate-500 rounded-[15px] text-sm px-3 py-1 text-white dark:text-[#ddd]">Pending</span>
+                    {% endif %}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      },
+      darkMode: 'selector',
+    }
+    let skillBtn = document.querySelector("#addSkill");
+    let skillModel = document.querySelector('.skill-model');
+    skillBtn.addEventListener('click',() => {
+        skillModel.classList.remove("hidden")
+    })
+    skillModel.addEventListener('click',(e) => {
+        if (e.target === skillModel){
+            skillModel.classList.add("hidden")
+        }
+    })
+
+    let editBtn = document.querySelector("#editProfile");
+    let editModel = document.querySelector('.edit-model');
+    editBtn.addEventListener('click',() => {
+        editModel.classList.remove("hidden")
+    })
+    editModel.addEventListener('click',(e) => {
+        if (e.target === editModel){
+            editModel.classList.add("hidden")
+        }
+    })
+  </script>
+</html>

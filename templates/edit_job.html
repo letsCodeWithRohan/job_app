@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Jobs | Jobsy</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+</head>
+
+<body
+    class="flex relative flex-col justify-between min-h-screen w-full dark:bg-zinc-900 bg-white dark:text-white font-[Outfit]">
+    <header class="flex justify-between px-[5vw] shadow-md h-[60px] items-center">
+        <a href="/admin/" class="text-2xl font-bold">Job<span class="text-violet-500">Hunt</span></a>
+        <div class="flex items-center gap-[3vw] font-semibold text-lg dark:text-white text-slate-600">
+            <a href="/admin/" class="hover:text-violet-500">Companies</a>
+            <a href="/admin/jobs" class="text-violet-500 hover:text-violet-500">Jobs</a>
+            <a href="/admin/profile">
+                <img src="/static/uploads/{{session['profile']}}" alt="Profile Image" title="Profile Image"
+                    class="w-[45px] h-[45px] rounded-full border border-[#000] dark:border-[#fff]">
+            </a>
+            <a href="/logout_admin" class="hover:text-violet-500"><i class="ri-logout-box-r-line"></i></a>
+        </div>
+    </header>
+    <div class="app w-full px-[5vw] bg-slate-200 flex-1 py-[2vh]">
+        <main class="bg-white p-5 flex flex-col gap-5 rounded-[10px]">
+            <form action="/edit_job/{{data['id']}}" method="post" enctype="multipart/form-data"
+            class="dark:bg-zinc-900 bg-white w-full mx-auto p-5 flex flex-col gap-5 rounded-[10px]">
+            <h1 class="text-2xl font-semibold">Edit Job</h1>
+            <div class="row flex items-center gap-3">
+                <div class="w-1/2">
+                    <label for="title"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                    <input type="text" id="title"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        placeholder="" value="{{data['role']}}" name="title" required />
+                </div>
+                <div class="w-1/2">
+                    <label for="req"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Requirement</label>
+                    <input type="text" id="req"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" name="requirements"
+                        required value="{{data['requirement']}}" />
+                </div>
+            </div>
+            <div class="row flex items-center gap-3">
+                <div class="w-1/2">
+                    <label for="title"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
+                    <input type="text" id="title"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        placeholder="" name="location" value="{{data['location']}}" required />
+                </div>
+                <div class="w-1/2">
+                    <label for="req" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Salary (In
+                        LPA)</label>
+                    <input type="number" id="req"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        required name="salary" value="{{data['salary']}}" />
+                </div>
+            </div>
+            <div class="row flex items-center gap-3">
+                <div class="w-1/2">
+
+                    <label for="req" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Experience (In
+                        Year)</label>
+                    <input type="number" id="req"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        required name="experience" value="{{data['experience']}}" />
+                </div>
+                <div class="w-1/2">
+                    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job
+                        Type</label>
+                    <select id="type"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="type" required>
+                        {% if data['type'] == "Part-Time" %}
+                        <option value="Part-Time" selected>Part Time</option>
+                        {% else %}
+                        <option value="Part-Time">Part Time</option>
+                        {% endif %}
+                        {% if data['type'] == "Full-Time" %}
+                        <option value="Full-Time" selected>Full Time</option>
+                        {% else %}
+                        <option value="Full-Time">Part Time</option>
+                        {% endif %}
+                        {% if data['type'] == "Contract" %}
+                        <option value="Contract" selected>Contract</option>
+                        {% else %}
+                        <option value="Contract">Contract</option>
+                        {% endif %}
+                        {% if data['type'] == "Contract" %}
+                        <option value="Internship" selected>Internship</option>
+                        {% else %}
+                        <option value="Internship">Internship</option>
+                        {% endif %}
+
+                    </select>
+                </div>
+            </div>
+            <div class="row flex items-center gap-3">
+                <div class="w-1/2">
+
+                    <label for="req" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. of
+                        Positions</label>
+                    <input type="number" id="req"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        required name="positions" value="{{data['positions']}}" />
+                </div>
+                <div class="w-1/2">
+                    <label for="title"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
+                    <select id="type"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="com_id">
+                        {% if cdata %}
+                        {% for id,name in cdata %}
+                        <option value="{{id}}">{{name}}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label for="message"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                <textarea id="message" rows="4"
+                    class="block p-2.5 w-full h-[70px] resize-none text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Add Description" name="description" value="{{data['description']}}">{{data['description']}}</textarea>
+
+            </div>
+            <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit Job</button>
+
+        </form>
+        </main>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    clifford: '#da373d',
+                }
+            }
+        },
+        darkMode: 'selector',
+    }
+    let jobBtn = document.querySelector("#job-btn");
+    let jobModal = document.querySelector('#job-model');
+    jobBtn.addEventListener('click', () => {
+        jobModal.classList.remove("hidden")
+    })
+    jobModal.addEventListener('click', (e) => {
+        if (e.target === jobModal) {
+            jobModal.classList.add("hidden")
+        }
+    })
+    let tl = gsap.timeline()
+
+    tl
+        .from('.flashMsg', {
+            top: '-15vh',
+            duration: 1,
+            ease: 'bounce'
+        })
+        .to('.flashMsg', {
+            top: '15vh',
+            duration: 1,
+            ease: 'sine'
+        })
+        .to('.flashMsg', {
+            delay: 1.5,
+            opacity: 0,
+            duration: 0.5
+        })
+        .to('.flashMsg', {
+            top: '-15vh',
+            duration: 0.5
+        })
+</script>
+
+</html>

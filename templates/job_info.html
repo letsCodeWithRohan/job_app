@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse | Jobsy</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body class="min-h-screen flex flex-col justify-between w-full dark:bg-zinc-900 bg-white dark:text-white font-[Outfit]">
+    <header class="flex justify-between px-[5vw] shadow-md h-[60px] items-center">
+        <a href="/" class="text-2xl font-bold">Job<span class="text-violet-500">Hunt</span></a>
+        <div class="flex items-center gap-[3vw] font-semibold text-lg dark:text-white text-slate-600">
+            <a href="/" class="hover:text-violet-500">Home</a>
+            <a href="/jobs" class="hover:text-violet-500">Jobs</a>
+            <a href="/profile">
+                <img src="/static/uploads/def.avif" alt="Profile Image" title="Profile Image" class="w-[45px] h-[45px] rounded-full border border-[#000] dark:border-[#fff]">
+            </a>
+            <a href="/logout" class="hover:text-violet-500"><i class="ri-logout-box-r-line"></i></a>
+        </div>
+    </header>
+    <div class="app w-full px-[5vw] bg-slate-200 flex-1 py-[2vh]">
+        <main class="bg-white p-5 flex flex-col gap-5 rounded-[10px]">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-semibold">Job Details</h1>
+            </div>
+            <div class="line bg-slate-300 h-[2px] w-full"></div>
+            <div class="flex justify-between items-center">
+                <div class="lf flex flex-col gap-4">
+                    <h1 class="text-lg font-semibold">{{data[1]}}</h1>
+                    <div class="flex gap-3 items-center">
+                        <p class="text-sky-600 text-sm shadow-md p-1 font-semibold rounded-[5px]">{{data[7]}} positions</p>
+                        <p class="text-red-600 text-sm shadow-md p-1 font-semibold rounded-[5px]">{{data[6]}}</p>
+                        <p class="text-violet-600 text-sm shadow-md p-1 font-semibold rounded-[5px]">{{data[5]}}LPA</p>
+                      </div>
+                </div>
+                {% if applied %}
+                <p id="add-btn" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 rounded-[10px] text-black font-semibold text-sm">Already Applied</p>
+                {% else %}
+                <a href="/apply/{{data[0]}}" id="add-btn" class="px-3 py-2 bg-violet-500 hover:bg-violet-600 rounded-[10px] text-white font-semibold text-sm"><i class="ri-add-line"></i> Apply Now</a>
+                {% endif %}
+            </div>
+            <p>
+                <span class="text-md font-semibold">Company : </span>
+                <span>{{data[2]}}</span>
+            </p>
+            <p>
+                <span class="text-md font-semibold">Requirements : </span>
+                <span>{{data[3]}}</span>
+            </p>
+            <p>
+                <span class="text-md font-semibold">Location : </span>
+                <span>{{data[4]}}</span>
+            </p>
+            <p>
+                <span class="text-md font-semibold">Description : </span>
+                <span>{{data[8]}}</span>
+            </p>
+            <p>
+                <span class="text-md font-semibold">Experience : </span>
+                <span>{{data[10]}} years</span>
+            </p>
+            <p>
+                <span class="text-md font-semibold">Salary : </span>
+                <span>{{data[5]}} LPA</span>
+            </p>
+            <p>
+                <span class="text-md font-semibold">Total Applicants : </span>
+                <span>{{applicants[0]}}</span>
+            </p>
+            <p>
+                <span class="text-md font-semibold">Posted Date : </span>
+                <span>{{data[9]}}</span>
+            </p>
+        </main>
+    </div>
+</body>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      },
+      darkMode: 'selector',
+    }
+  </script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse | Jobsy</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+</head>
+<body class="h-screen flex justify-between gap-2 flex-col w-full dark:bg-zinc-900 bg-slate-300 dark:text-white font-[Outfit]">
+    <header class="flex justify-between px-[5vw] shadow-md h-[60px] items-center bg-white">
+        <a href="/" class="text-2xl font-bold">Job<span class="text-violet-500">Hunt</span></a>
+        <div class="flex items-center gap-[3vw] font-semibold text-lg dark:text-white text-slate-600">
+            <a href="/" class="hover:text-violet-500">Home</a>
+            <a href="/jobs" class="hover:text-violet-500">Jobs</a>
+            <a href="/profile">
+                <img src="/static/uploads/def.avif" alt="Profile Image" title="Profile Image" class="w-[45px] h-[45px] rounded-full border border-[#000] dark:border-[#fff]">
+            </a>
+      <a href="/logout" class="hover:text-violet-500"><i class="ri-logout-box-r-line"></i></a>
+
+        </div>
+    </header>
+    <h1 class="bg-slate-300 text-xl ps-[5vw] font-semibold">Search Results ({{jobs | length}})</h1>
+  <div class="app flex-1 bg-slate-300 w-full h-[80vh] flex">
+    <main class="grid grid-cols-1 md:grid-cols-3 w-full bg-slate-300 h-full overflow-x-hidden gap-3 p-3">
+      {% for job in jobs %}
+      <a href="/job_info/{{job['id']}}" class="card flex flex-col gap-3 p-5 bg-white w-full h-max rounded-[10px]">
+        <div class="flex justify-between items-center">
+          <p>{{job['date']}}</p>
+          <i class="text-[1.4rem] ri-bookmark-line"></i>
+        </div>
+        <div class="flex items-center gap-3">
+          <img src="/static/uploads/{{job['profile']}}" class="w-[40px] h-[40px] rounded-full" alt="">
+          <div class="flex flex-col gap-1">
+            <p class="font-semibold text-md">{{job['name']}}</p>
+            <p class="text-slate-600 text-xs">{{job['location']}}</p>
+          </div>
+        </div>
+        <p class="text-lg font-semibold">{{job['role']}}</p>
+        <p class="text-xs text-slate-800">{{job['description']}}</p>
+        <div class="flex gap-3 items-center">
+          <p class="text-sky-600 text-sm shadow-md p-1 font-semibold rounded-[5px]">{{job['positions']}} positions</p>
+          <p class="text-red-600 text-sm shadow-md p-1 font-semibold rounded-[5px]">{{job['type']}}</p>
+          <p class="text-violet-600 text-sm shadow-md p-1 font-semibold rounded-[5px]">{{job['salary']}}LPA</p>
+        </div>
+      </a>
+      {% endfor %}
+    </main>
+    </div>
+</body>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      },
+      darkMode: 'selector',
+    }
+  </script>
+</html>
