@@ -37,6 +37,13 @@ pip install flask flask_mysqldb
 ```
 </li>
 <li>
+   <p>Install Node Dependencies</p>
+
+```bash
+npm install
+```
+</li>
+<li>
 <p>Setup Database</p>
 <ul>
 <li>Open XAMPP CONTROL PANEL.</li>
