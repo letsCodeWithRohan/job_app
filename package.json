@@ -1,0 +1,15 @@
+{
+  "name": "jobapp",
+  "version": "1.0.0",
+  "description": "CREATE TABLE students (\r     id INT AUTO_INCREMENT PRIMARY KEY,\r     name VARCHAR(100) NOT NULL,\r     email VARCHAR(100) NOT NULL UNIQUE,\r     password VARCHAR(255) NOT NULL,\r     phone VARCHAR(15),\r     profile VARCHAR(255),  -- For storing the profile picture path or URL\r     bio TEXT,\r     resume VARCHAR(255),  -- For storing the resume file path or URL\r     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\r );",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.12"
+  }
+}

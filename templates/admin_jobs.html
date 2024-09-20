@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Jobs | Jobsy</title>
-    <script src="https://cdn.tailwindcss.com/"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'output.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
 
 </head>
@@ -38,8 +38,8 @@
                     <label for="req"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Requirement</label>
                     <input type="text" id="req"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" name="requirements"
-                        required />
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        name="requirements" required />
                 </div>
             </div>
             <div class="row flex items-center gap-3">
@@ -71,7 +71,8 @@
                     <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job
                         Type</label>
                     <select id="type"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="type" required>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        name="type" required>
                         <option value="Full-Time">Full Time</option>
                         <option value="Part-Time">Part Time</option>
                         <option value="Contract">Contract</option>
@@ -92,7 +93,8 @@
                     <label for="title"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
                     <select id="type"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="com_id">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        name="com_id">
                         {% if cdata %}
                         {% for id,name in cdata %}
                         <option value="{{id}}">{{name}}</option>
@@ -131,66 +133,55 @@
         <main class="bg-white p-5 flex flex-col gap-5 rounded-[10px]">
             <div class="flex justify-between items-center">
                 <h1 class="text-xl font-semibold">Jobs</h1>
-                
-                    
-                    {% if cdata|length <= 0 %}
-                    <a href="/admin" class="px-3 py-2 bg-violet-500 hover:bg-violet-600 rounded-[10px] text-white font-semibold text-sm"><i class="ri-add-line"></i> Add Company</a>
+
+
+                {% if cdata|length <= 0 %} <a href="/admin"
+                    class="px-3 py-2 bg-violet-500 hover:bg-violet-600 rounded-[10px] text-white font-semibold text-sm">
+                    <i class="ri-add-line"></i> Add Company</a>
                     {% else %}
                     <p id="job-btn"
-                    class="px-3 py-2 bg-violet-500 hover:bg-violet-600 rounded-[10px] text-white font-semibold text-sm">
-                    <i class="ri-add-line"></i> New Job</p>
+                        class="px-3 py-2 bg-violet-500 hover:bg-violet-600 rounded-[10px] text-white font-semibold text-sm">
+                        <i class="ri-add-line"></i> New Job
+                    </p>
                     {% endif %}
 
             </div>
-            {% if data|length <= 0 %}
-            <div class="flex items-center justify-center p-8">
+            {% if data|length <= 0 %} <div class="flex items-center justify-center p-8">
                 <h1 class="text-xl font-semibold">No Jobs Added</h1>
-              </div>
-              {% else %}
-            <div class="shadow-md p-3">
-                <div
-                    class="titles flex items-center border-b pb-3 border-slate-500 dark:border-[#fff] justify-between text-lg">
-                    <p class="w-1/4">Company</p>
-                    <p class="w-1/4">Role</p>
-                    <p class="w-1/4">Date</p>
-                    <p class="w-1/4">Action</p>
-                </div>
-                {% if job_data%}
-                {% for id,name,role,date in job_data %}
-                <div
-                    class="records flex items-center border-b py-3 border-slate-500 dark:border-[#fff] justify-between">
-                    <p class="w-1/4">
-                        {{name}}
-                    </p>
-                    <p class="w-1/4">{{role}}</p>
-                    <p class="w-1/4">{{date}}</p>
-                    <p class="w-1/4">
-                        <a href="/edit_job/{{id}}" class="text-white bg-orange-400 p-2 rounded-[10px] me-4">Edit</a>
-                        <a href="/delete_job/{{id}}" class="text-white bg-red-400 p-2 rounded-[10px] me-4">Remove</a>
-                        <a href="/applicants/{{id}}" class="text-white bg-green-400 p-2 rounded-[10px]">Applicants</a>
-                    </p>
-                </div>
-                {% endfor %}
-                {% endif %}
-            </div>
-          {% endif %}
-        </main>
+    </div>
+    {% else %}
+    <div class="shadow-md p-3">
+        <div class="titles flex items-center border-b pb-3 border-slate-500 dark:border-[#fff] justify-between text-lg">
+            <p class="w-1/4">Company</p>
+            <p class="w-1/4">Role</p>
+            <p class="w-1/4">Date</p>
+            <p class="w-1/4">Action</p>
+        </div>
+        {% if job_data%}
+        {% for id,name,role,date in job_data %}
+        <div class="records flex items-center border-b py-3 border-slate-500 dark:border-[#fff] justify-between">
+            <p class="w-1/4">
+                {{name}}
+            </p>
+            <p class="w-1/4">{{role}}</p>
+            <p class="w-1/4">{{date}}</p>
+            <p class="w-1/4">
+                <a href="/edit_job/{{id}}" class="text-white bg-orange-400 p-2 rounded-[10px] me-4">Edit</a>
+                <a href="/delete_job/{{id}}" class="text-white bg-red-400 p-2 rounded-[10px] me-4">Remove</a>
+                <a href="/applicants/{{id}}" class="text-white bg-green-400 p-2 rounded-[10px]">Applicants</a>
+            </p>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+    </main>
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
     integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    clifford: '#da373d',
-                }
-            }
-        },
-        darkMode: 'selector',
-    }
     let jobBtn = document.querySelector("#job-btn");
     let jobModal = document.querySelector('#job-model');
     jobBtn.addEventListener('click', () => {

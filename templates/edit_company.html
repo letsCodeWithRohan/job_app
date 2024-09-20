@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Jobs | Jobsy</title>
-    <script src="https://cdn.tailwindcss.com/"></script>
+    <title>Edit Company | Jobsy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'output.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
 
 </head>
@@ -64,16 +64,6 @@
     integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    clifford: '#da373d',
-                }
-            }
-        },
-        darkMode: 'selector',
-    }
     let jobBtn = document.querySelector("#job-btn");
     let jobModal = document.querySelector('#job-model');
     jobBtn.addEventListener('click', () => {

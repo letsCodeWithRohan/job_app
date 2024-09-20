@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Applicants | Jobsy</title>
-    <script src="https://cdn.tailwindcss.com/"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'output.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
 
 </head>
@@ -126,23 +126,14 @@
     </div>
 </body>
 <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    clifford: '#da373d',
-                }
-            }
-        },
-        darkMode: 'selector',
-    }
 
     let orders = document.querySelectorAll('#selecBtn')
 
-        orders.forEach((e)=>{
-            e.addEventListener('change',()=>{
-              e.parentElement.submit();  
-        })})
+    orders.forEach((e) => {
+        e.addEventListener('change', () => {
+            e.parentElement.submit();
+        })
+    })
 </script>
 
 </html>

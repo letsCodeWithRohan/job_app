@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home | Jobsy</title>
-  <script src="https://cdn.tailwindcss.com/"></script>
+  <title>Register | Jobsy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'output.css') }}">
 </head>
 
 <body class="flex relative flex-col justify-between w-full dark:bg-zinc-900 bg-white dark:text-white font-[Outfit]">
@@ -73,16 +73,6 @@
   integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          clifford: '#da373d',
-        }
-      }
-    },
-    darkMode: 'selector',
-  }
   let tl = gsap.timeline()
 
   tl
